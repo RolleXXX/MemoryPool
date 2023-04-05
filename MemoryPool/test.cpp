@@ -31,7 +31,7 @@ int main()
 {
 
 	
-
+	//多线程
 	MemoryPool<Point> pool;
 	pool.addVec(1);
 	pool.addVec(2);
@@ -53,7 +53,7 @@ int main()
 	t1.join();
 	t2.join();
 
-
+	//测试多线程调用时有没有出现在同一块内存区域创建对象
 	for (int i = 0; i < 1000000; i++) {
 		if (points[i]->x != i || points[i]->y != i) {
 			std::cout << i << std::endl;
@@ -61,7 +61,9 @@ int main()
 			break;
 		}
 	}
+	
 
+	//对比标准分配器，测试该内存池性能
 	clock_t start;
 	
 	StackAlloc<int, MemoryAlloc<int> > stackPool;
